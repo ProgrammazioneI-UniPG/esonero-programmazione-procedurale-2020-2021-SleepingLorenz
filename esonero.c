@@ -3,8 +3,8 @@
 #include <time.h>
 #include <string.h>
 
-void caso2();
 void caso1();
+void caso2();
 
 char stringa_M[128];
 char chiave_K[128];
@@ -26,6 +26,12 @@ int main() {
         
     fgets(str_opzione, 20, stdin);
     opzione = strtol(str_opzione, NULL, 0);
+    
+    while(opzione != 1 && opzione !=2) {
+        printf("ERRORE : Digita 1 o 2...\n");
+        fgets(str_opzione, 20, stdin);
+        opzione = strtol(str_opzione, NULL, 0);
+    }
 
     switch(opzione) {
         case 1 :
@@ -37,15 +43,8 @@ int main() {
         break;
 
         default : 
-            while(opzione != 1 && opzione !=2) {
-                printf("ERRORE : Digita 1 o 2...\n");
-                fgets(str_opzione, 20, stdin);
-                opzione = strtol(str_opzione, NULL, 0);
-            }
-            if (opzione == 1)
-                caso1();
-            else
-                caso2();
+            printf("Errore");
+            exit(0);
         break;
     }
 
@@ -54,7 +53,6 @@ int main() {
 void caso1() { 
 
     printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \n");
-
     printf("OPZIONE 1\n");
     printf("Inserisci una stringa di lunghezza uguale o superiore per cifrare il testo \n");
    
@@ -68,37 +66,28 @@ void caso1() {
 
     }
 
-    printf("\n");
-
-    printf("Stringa da cifrare : %s", stringa_M);
-    printf("Chiave per cifrare : %s", chiave_K);
-
+    printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \n");
+    printf("Stringa da cifrare : %s\n", stringa_M);
+    printf("Chiave per cifrare : %s\n", chiave_K);
 
     for(int i = 0; i < strlen(chiave_K); i++) {
         cifrato_C[i] = stringa_M[i]^chiave_K[i];
     }
 
-    printf("Cifrato : \n");
-    printf("%s", cifrato_C);
-
-    printf("\n");
-
-    printf("Decifro C-K \n");
+    printf("Cifrato M-K : %s\n", cifrato_C);
 
     for(int i = 0; i < strlen(chiave_K); i++) {
         decifrato[i] = chiave_K[i]^cifrato_C[i];
     }
 
-    printf("Decifrato : %s  \n", decifrato);
+    printf("Decifrato C-K : %s  \n", decifrato);
     printf("Stringa iniziale : %s \n", stringa_M);
-
 
 }
 
 void caso2() {
 
     printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \n");
-
     printf("OPZIONE 2\n");
 
     time_t t;
@@ -109,29 +98,20 @@ void caso2() {
         chiave_K[i] = rand() % 128;
     }
 
-    printf("E' stata generata una chiave randomica :");
-    printf("%s", chiave_K); 
-
-    printf("\n");
-
+    printf("E' stata generata una chiave randomica : %s\n", chiave_K);
     printf("Stringa da cifrare : %s", stringa_M);
 
     for(int i = 0; i < strlen(chiave_K); i++) {
         cifrato_C[i] = stringa_M[i]^chiave_K[i];
     }
 
-    printf("Cifrato : \n");
-    printf("%s \n", cifrato_C);
-
-    printf("\n");
-
-    printf("Decifro C-K \n");
+    printf("Cifrato : %s\n", cifrato_C);
 
     for(int i = 0; i < strlen(chiave_K); i++) {
         decifrato[i] = chiave_K[i]^cifrato_C[i];
     }
 
-    printf("Decifrato : %s  \n", decifrato);
-    printf("Stringa iniziale : %s \n", stringa_M);
+    printf("Decifrato C-K : %s\n", decifrato);
+    printf("Stringa iniziale : %s\n", stringa_M);
 
 }
